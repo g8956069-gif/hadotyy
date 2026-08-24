@@ -7,14 +7,48 @@
 
 <style>
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
 
 body{
     margin:0;
-    font-family:Arial,"Tahoma",sans-serif;
-    background:linear-gradient(135deg,#fff0f5,#ffe0e9,#fff5f8);
+    font-family:Arial,Tahoma,sans-serif;
+    background:linear-gradient(135deg,#ffe6ed,#fff5f8,#ffd6e3);
     color:#4a2434;
     text-align:center;
+    overflow-x:hidden;
+}
+
+#start{
+    position:fixed;
+    inset:0;
+    background:linear-gradient(135deg,#ff8fb3,#ffd1df);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    z-index:9999;
+    transition:1s;
+}
+
+#start h1{
+    color:white;
+    font-size:42px;
+    margin:10px;
+}
+
+#start p{
+    color:white;
+    font-size:20px;
+}
+
+button{
+    border:0;
+    border-radius:30px;
+    padding:14px 28px;
+    background:#d63384;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+    box-shadow:0 8px 20px #d6338444;
 }
 
 .container{
@@ -37,216 +71,314 @@ h2{
     display:inline-block;
     background:white;
     padding:12px 25px;
-    border-radius:20px;
+    border-radius:25px;
     color:#d63384;
     font-weight:bold;
     box-shadow:0 8px 25px #d6338425;
-    margin:15px;
 }
 
 .card{
-    background:#ffffffed;
+    background:white;
     border-radius:25px;
     padding:25px;
     margin:25px 0;
-    box-shadow:0 12px 35px #d6338420;
+    box-shadow:0 10px 30px #d6338430;
 }
 
-.message p,
-.closing p{
+.message{
     font-size:18px;
     line-height:2;
     text-align:right;
-    margin-bottom:20px;
 }
 
-.highlight{
+.message strong{
     color:#d63384;
-    font-weight:bold;
-}
-
-.title{
-    color:#d63384;
-    font-size:28px;
-    margin-bottom:20px;
 }
 
 .reasons{
-    background:#fff4f8;
-    border:2px dashed #ffabc3;
-}
-
-.reasons ul{
-    list-style:none;
-    padding:0;
+    background:#fff0f5;
+    border:2px dashed #ff9fba;
+    border-radius:25px;
+    padding:20px;
 }
 
 .reasons li{
-    background:white;
-    margin:10px 0;
-    padding:12px;
-    border-radius:15px;
+    list-style:none;
+    margin:12px;
     color:#d63384;
     font-weight:bold;
+    font-size:19px;
 }
 
 .gallery{
     display:flex;
     flex-direction:column;
-    gap:30px;
+    gap:25px;
 }
 
-.photo{
+.photo-card{
     background:white;
-    padding:12px;
-    border-radius:22px;
-    box-shadow:0 12px 30px #00000015;
+    padding:15px;
+    border-radius:25px;
+    box-shadow:0 10px 30px #0002;
 }
 
-.photo img{
+.photo-card img{
     width:100%;
-    border-radius:17px;
+    border-radius:20px;
     display:block;
 }
 
-.photo p{
+.photo-card p{
     color:#d63384;
-    font-size:19px;
-    font-weight:bold;
-    line-height:1.8;
-}
-
-.closing{
-    background:linear-gradient(145deg,#fff,#fff0f5);
-}
-
-.closing ol{
-    text-align:right;
-    line-height:2;
     font-size:18px;
-}
-
-.closing li{
-    margin:8px 0;
-}
-
-.promise{
-    color:#d63384;
     font-weight:bold;
-    font-size:21px !important;
+    line-height:1.7;
 }
 
-.final{
-    color:#d63384;
-    font-size:28px;
-    font-weight:bold;
-    margin:35px 0;
+.music{
+    position:fixed;
+    bottom:18px;
+    left:18px;
+    z-index:1000;
 }
 
-.footer{
-    color:#d63384;
-    font-weight:bold;
-    padding:20px;
+#final{
+    display:none;
+    animation:fade 2s;
+}
+
+.heart{
+    position:fixed;
+    bottom:-30px;
+    font-size:22px;
+    animation:up 6s linear forwards;
+    pointer-events:none;
+    z-index:0;
+}
+
+@keyframes up{
+    0%{transform:translateY(0) rotate(0);opacity:0}
+    15%{opacity:1}
+    100%{transform:translateY(-110vh) rotate(360deg);opacity:0}
+}
+
+@keyframes fade{
+    from{opacity:0;transform:translateY(30px)}
+    to{opacity:1;transform:translateY(0)}
 }
 </style>
 </head>
 
 <body>
 
+<div id="start">
+    <h1>Hadotyy 💗</h1>
+    <p>عندي مفاجأة صغيرة ليكي يا هدوتي...</p>
+    <button onclick="openLove()">دوسي هنا يا روحي 💕</button>
+</div>
+
+<audio id="music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div class="music">
+    <button onclick="toggleMusic()" id="musicBtn">🎵 تشغيل الموسيقى</button>
+</div>
+
 <div class="container">
 
 <h1>Hadotyy</h1>
-
 <h2>يا روحي 💖</h2>
 
-<div class="date">
-29/4 — الساعة 12:48 🕐
-</div>
+<div class="date">29/4 الساعة 12:48 ❤️</div>
 
 <div class="card message">
 
 <p>
 يا هدوتي أنا مش عارف أوصفلك قد إيه وجودك في حياتي فرق معايا.
-من يوم <span class="highlight">29/4</span> والوقت ده بقى له معنى مختلف عندي ومن ساعتها وأنا حاسس إن حياتي بقت أحلى بوجودك.
+من يوم 29/4 والوقت ده بقى له معنى مختلف عندي ومن ساعتها وأنا حاسس إن حياتي بقت أحلى بوجودك.
 بحب ضحكتك الكيوت وكلامك وتفاصيلك الصغيرة وحتى الحاجات اللي يمكن إنت مش واخدة بالك منها.
 </p>
 
 <p>
-أنا فرحان بجد بكل لحظة مع بعض فيها وكل صورة وكل ضحكة وكل مرة اتكلمنا فيها ومهما حاولت أكتب مش هعرف أوصفلك مكانتك عندي.
+أنا فرحان بجد بكل لحظة مع بعض فيها وكل صورة وكل ضحكة وكل مرة اتكلمنا فيها،
+ومهما حاولت أكتب مش هعرف أوصفلك مكانتك عندي.
 </p>
 
 <p>
 نفسي أفضل دايما الحد اللي يقدر يخليكي فرحانه وأكون جنبك في أيامك الحلوة والصعبة.
-بحبك أوي يا روحي ووجودك عندي مش مجرد ذكرى حلوة… إنت من اجمل الحاجات اللي حصلتلي
-<span class="highlight">💗 Hadotyy 💗</span>
+بحبك أوي يا روحي ووجودك عندي مش مجرد ذكرى حلوة…
+<strong>إنت من أجمل الحاجات اللي حصلتلي 💗 Hadotyy 💗</strong>
 </p>
 
 <p>
-يمكن أنا مش أشطر واحد في التعبير عن اللي جوايا بس في حاجة واحدة متاكد منها
-<span class="highlight">إنت بقيتي كل حاجه حلوه من حياتي.</span>
+يمكن أنا مش أشطر واحد في التعبير عن اللي جوايا،
+بس في حاجة واحدة متأكد منها:
+<strong>إنت بقيتي كل حاجة حلوة في حياتي.</strong>
 </p>
 
 <p>
-من يوم 29/4 الساعة 12:48 الوقت بالنسبالي بقى ليه معنى تاني من اللحظة دي وانا دايما مبسوط بجد مش عايزك تبعدي عني اه ساعت بتعصب بصراحه بس بكون غيران عليكي وكل يوم بيعدي وأنا معاكي بحبك اكتر اكتر من اليوم الي قبله كان بجد وجودك معايا من احلي الحاجات اللي حصلتلي او احلي حاجة اصلا.
+من يوم 29/4 الساعة 12:48 الوقت بالنسبالي بقى ليه معنى تاني.
+من اللحظة دي وأنا دايما مبسوط بجد ومش عايزك تبعدي عني.
+آه ساعات بتعصب بصراحة بس بكون غيران عليكي،
+وكل يوم بيعدي وأنا معاكي بحبك أكتر من اليوم اللي قبله.
 </p>
 
 <p>
-علفكره بحب صوتك و شكلك وطريقتك يمكن بالنسبة لحد تاني تكون حاجات عادية بس بالنسبالي كل حاجة تخصك ليها مكان خاص عندي.
+علفكره بحب صوتك وشكلك وطريقتك،
+يمكن بالنسبة لحد تاني تكون حاجات عادية،
+بس بالنسبالي كل حاجة تخصك ليها مكان خاص عندي.
 </p>
 
 <p>
-نفسي كل مرة تدخلي هنا تفتكري إن في حد بيحبك أوي وبيفرح بوجودك وبيعتبر كل لحظة معاكي بيفكرني انك بجد مراتي او البنت الي هتجوزها وعلفكره عمري ما كلمت بنت بعدك او حتا قولت لبنت كلام حلو غيرك.
+نفسي كل مرة تدخلي هنا تفتكري إن في حد بيحبك أوي
+وبيفرح بوجودك وبيعتبر كل لحظة معاكي حاجة مميزة.
+وبيفكرني إنك بجد مراتي أو البنت اللي هتجوزها.
+وعلفكره عمري ما كلمت بنت بعدك أو حتى قولت لبنت كلام حلو غيرك.
 </p>
 
-<p>بحبك أوي يا قلبي</p>
-
 <p>
-وبرضو من وقت ما عرفتك ونا حاسس بجد إن حياتي اتغيرت للأحسن ممكن اكون قلتها كذا مره بس انا كلامي بجد و علفكره انتي بجد جدعه وبتشجعيني ومحترمه ودي حاجة عمري ما هنسى أشكرك عليها ♥️♥️♥️♥️♥️🥀😍
+بحبك أوي يا قلبي ❤️
+وبرضو من وقت ما عرفتك وأنا حاسس بجد إن حياتي اتغيرت للأحسن.
+ممكن أكون قلتها كذا مرة بس أنا كلامي بجد.
+وعلفكره انتي بجد جدعة وبتشجعيني ومحترمة،
+ودي حاجة عمري ما هنسى أشكرك عليها ♥️♥️♥️♥️♥️🥀😍
 </p>
 
 </div>
 
-<div class="card reasons">
-
-<h2 class="title">✨ بحب فيكي ✨</h2>
-
+<div class="reasons">
+<h2>✨ بحب فيكي ✨</h2>
 <ul>
 <li>❤️ عيونك</li>
 <li>❤️ إيديكي</li>
 <li>❤️ طيبتك</li>
 <li>❤️ جدعنتك</li>
 </ul>
-
 </div>
 
-<h2 class="title">📸 ذكرياتنا 📸</h2>
+<h2>ذكرياتنا ❤️📸</h2>
 
 <div class="gallery">
 
-<div class="photo">
+<div class="photo-card">
 <img src="IMG_20260804_162845.jpg">
-<p>بجد عمري ما هقابل بنت زيك يا احلي حد في حياتي</p>
+<p>بجد عمري ما هقابل بنت زيك يا أحلى حد في حياتي ❤️</p>
 </div>
 
-<div class="photo">
+<div class="photo-card">
 <img src="motion_photo_3663476412108874974.jpg">
-<p>بجد انتي احلي واجمل حد في حياتي كلها</p>
+<p>بجد انتي أحلى وأجمل حد في حياتي كلها 💗</p>
 </div>
 
-<div class="photo">
+<div class="photo-card">
 <img src="IMG-20260706-WA0007.jpg">
-<p>ربنا يخليكي ليا يا احلي هدوتي</p>
+<p>ربنا يخليكي ليا يا أحلى هدوتي 🥀❤️</p>
 </div>
 
 </div>
 
-<div class="card closing">
+<div class="card" style="margin-top:40px">
+<button onclick="showFinal()">آخر حاجة عايز أقولها ليكي... 💌</button>
+</div>
 
-<h2 class="title">💌 وعد ليكي</h2>
+<div id="final" class="card message">
+
+<h2>من قلبي ليكي ❤️</h2>
 
 <p>
-كل دا وانا لسا هبقا معاكي وهنعمل ذكريات كتيرههه مع بعض وهنتجوزز لحد ما اولادنا يتجوزو ويخلفو ونبقا عندنا احفاد
+كل دا وأنا لسا هبقا معاكي وهنعمل ذكريات كتيره مع بعض
+وهنتجوزز لحد ما أولادنا يتجوزوا ويخلفوا ونبقا عندنا أحفاد ❤️
 </p>
 
-<p class="promise">
-بس ب
+<p>
+بس بجد وعد من راجل إني مش هسيبك أبدا وهفضل جنبك دايما،
+وده وعد بجد هفضل جنبك طول العمر.
+بموت فيكي أوي ربنا يخليكي ليا.
+</p>
+
+<p>
+وعلفكره انتي بجد هدية من ربنا.
+أولا محترمة، تانيه قمورة، تالت حاجه جدعة أوي،
+رابع حاجه بتحبيني بجد، خامس حاجه عمرك منسيتي ليا حاجه،
+سادس حاجه هتعرفي تربي أولادنا كويس،
+سابع حاجه بتحبي دينك ودي حاجه حلوه،
+ثامن حاجه كيوت أوي ودلوعة،
+تاسع حاجه دمك خفيف،
+عاشر حاجه محجبة وبتلبسي لبس محترم.
+</p>
+
+<p>
+كل دا وأنا ملخص الحاجات الحلوة يعني،
+بجد فيكي حاجات كتير حلوة.
+آه بصراحة ساعات بتفضلي متعصبة،
+بس بحب كدا لأن انتي بتعملي كدا بيأكد إنك بتحبيني بجد،
+فحبيت كدا وأنا أصلا نفسي كداا أخدك في حضنيي ككداا 😭❤️
+</p>
+
+<p>
+المهم يا روحي،
+عايزك لما نتجوز تقري الرسالة دي تاني
+وهتعرفي إني عملت وعدي ❤️🥀
+</p>
+
+<h1 style="font-size:42px">بحبك يا هدوتي ❤️</h1>
+
+</div>
+
+<p style="color:#d63384;font-weight:bold;font-size:18px;margin:50px 0">
+29/4 ❤️ بداية أجمل حكاية في حياتي
+</p>
+
+</div>
+
+<script>
+
+function openLove(){
+    document.getElementById("start").style.opacity="0";
+    setTimeout(()=>{
+        document.getElementById("start").style.display="none";
+    },1000);
+
+    let music=document.getElementById("music");
+    music.play().catch(()=>{});
+}
+
+function toggleMusic(){
+    let music=document.getElementById("music");
+    let btn=document.getElementById("musicBtn");
+
+    if(music.paused){
+        music.play();
+        btn.innerHTML="⏸️ إيقاف الموسيقى";
+    }else{
+        music.pause();
+        btn.innerHTML="🎵 تشغيل الموسيقى";
+    }
+}
+
+function showFinal(){
+    document.getElementById("final").style.display="block";
+    document.getElementById("final").scrollIntoView({
+        behavior:"smooth"
+    });
+}
+
+function heart(){
+    let h=document.createElement("div");
+    h.className="heart";
+    h.innerHTML=["❤️","💗","💕","💖","🥀"][Math.floor(Math.random()*5)];
+    h.style.left=Math.random()*100+"vw";
+    h.style.animationDuration=(4+Math.random()*4)+"s";
+    document.body.appendChild(h);
+
+    setTimeout(()=>h.remove(),8000);
+}
+
+setInterval(heart,700);
+
+</script>
+
+</body>
+    </html>
